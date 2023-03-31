@@ -6,8 +6,11 @@ import (
 	"net/http"
 )
 
-type AuthsRequest struct {
-	Request interface{} `request:"mediaType=application/json"`
+type AuthsApplicationJSON struct {
+	// The email of the user
+	Email string `json:"email"`
+	// The password of the user
+	Password string `json:"password"`
 }
 
 type AuthsResponse struct {

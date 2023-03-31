@@ -6,8 +6,15 @@ import (
 	"net/http"
 )
 
-type SearchCompaniesRequest struct {
-	Request interface{} `request:"mediaType=application/json"`
+type SearchCompaniesApplicationJSON struct {
+	// Filter for searching
+	Filter *string `json:"filter,omitempty"`
+	// Number of results per page (0-100)
+	Limit *string `json:"limit,omitempty"`
+	// The offset number to start at
+	Page *string `json:"page,omitempty"`
+	// Query for searching
+	Query *string `json:"query,omitempty"`
 }
 
 type SearchCompaniesResponse struct {

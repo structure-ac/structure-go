@@ -35,14 +35,14 @@ func newCompanies(defaultClient, securityClient HTTPClient, serverURL, language,
 // CompanyEmployees - Show company employees
 func (s *companies) CompanyEmployees(ctx context.Context, request operations.CompanyEmployeesRequest) (*operations.CompanyEmployeesResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request.PathParams, nil)
+	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request, nil)
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 
-	if err := utils.PopulateQueryParams(ctx, req, request.QueryParams, nil); err != nil {
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
 		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
@@ -88,14 +88,14 @@ func (s *companies) CompanyEmployees(ctx context.Context, request operations.Com
 // CompanyJobs - Show company jobs
 func (s *companies) CompanyJobs(ctx context.Context, request operations.CompanyJobsRequest) (*operations.CompanyJobsResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request.PathParams, nil)
+	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request, nil)
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 
-	if err := utils.PopulateQueryParams(ctx, req, request.QueryParams, nil); err != nil {
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
 		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
@@ -148,7 +148,7 @@ func (s *companies) EnrichCompany(ctx context.Context, request operations.Enrich
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 
-	if err := utils.PopulateQueryParams(ctx, req, request.QueryParams, nil); err != nil {
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
 		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
@@ -194,7 +194,7 @@ func (s *companies) EnrichCompany(ctx context.Context, request operations.Enrich
 }
 
 // SearchCompanies - Search Companies
-func (s *companies) SearchCompanies(ctx context.Context, request operations.SearchCompaniesRequest) (*operations.SearchCompaniesResponse, error) {
+func (s *companies) SearchCompanies(ctx context.Context, request operations.SearchCompaniesApplicationJSON) (*operations.SearchCompaniesResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/companies/search"
 

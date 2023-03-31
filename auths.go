@@ -33,7 +33,7 @@ func newAuths(defaultClient, securityClient HTTPClient, serverURL, language, sdk
 }
 
 // Auths - Login user
-func (s *auths) Auths(ctx context.Context, request operations.AuthsRequest) (*operations.AuthsResponse, error) {
+func (s *auths) Auths(ctx context.Context, request operations.AuthsApplicationJSON) (*operations.AuthsResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/auths"
 
