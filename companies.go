@@ -12,6 +12,7 @@ import (
 	"strings"
 )
 
+// companies - Companies
 type companies struct {
 	defaultClient  HTTPClient
 	securityClient HTTPClient
@@ -32,114 +33,8 @@ func newCompanies(defaultClient, securityClient HTTPClient, serverURL, language,
 	}
 }
 
-// CompanyEmployees - Show company employees
-func (s *companies) CompanyEmployees(ctx context.Context, request operations.CompanyEmployeesRequest) (*operations.CompanyEmployeesResponse, error) {
-	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request, nil)
-
-	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
-	if err != nil {
-		return nil, fmt.Errorf("error creating request: %w", err)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
-	client := s.securityClient
-
-	httpRes, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("error sending request: %w", err)
-	}
-	if httpRes == nil {
-		return nil, fmt.Errorf("error sending request: no response")
-	}
-	defer httpRes.Body.Close()
-
-	contentType := httpRes.Header.Get("Content-Type")
-
-	res := &operations.CompanyEmployeesResponse{
-		StatusCode:  httpRes.StatusCode,
-		ContentType: contentType,
-		RawResponse: httpRes,
-	}
-	switch {
-	case httpRes.StatusCode == 200:
-		switch {
-		case utils.MatchContentType(contentType, `*/*`):
-			out, err := io.ReadAll(httpRes.Body)
-			if err != nil {
-				return nil, fmt.Errorf("error reading response body: %w", err)
-			}
-
-			res.Body = out
-		}
-	case httpRes.StatusCode == 401:
-		fallthrough
-	case httpRes.StatusCode == 403:
-		fallthrough
-	case httpRes.StatusCode == 404:
-	}
-
-	return res, nil
-}
-
-// CompanyJobs - Show company jobs
-func (s *companies) CompanyJobs(ctx context.Context, request operations.CompanyJobsRequest) (*operations.CompanyJobsResponse, error) {
-	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request, nil)
-
-	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
-	if err != nil {
-		return nil, fmt.Errorf("error creating request: %w", err)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
-	}
-
-	client := s.securityClient
-
-	httpRes, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("error sending request: %w", err)
-	}
-	if httpRes == nil {
-		return nil, fmt.Errorf("error sending request: no response")
-	}
-	defer httpRes.Body.Close()
-
-	contentType := httpRes.Header.Get("Content-Type")
-
-	res := &operations.CompanyJobsResponse{
-		StatusCode:  httpRes.StatusCode,
-		ContentType: contentType,
-		RawResponse: httpRes,
-	}
-	switch {
-	case httpRes.StatusCode == 200:
-		switch {
-		case utils.MatchContentType(contentType, `*/*`):
-			out, err := io.ReadAll(httpRes.Body)
-			if err != nil {
-				return nil, fmt.Errorf("error reading response body: %w", err)
-			}
-
-			res.Body = out
-		}
-	case httpRes.StatusCode == 401:
-		fallthrough
-	case httpRes.StatusCode == 403:
-		fallthrough
-	case httpRes.StatusCode == 404:
-	}
-
-	return res, nil
-}
-
-// EnrichCompany - Enrich a company profile
-func (s *companies) EnrichCompany(ctx context.Context, request operations.EnrichCompanyRequest) (*operations.EnrichCompanyResponse, error) {
+// Enrich - Enrich a company profile
+func (s *companies) Enrich(ctx context.Context, request operations.EnrichCompanyRequest) (*operations.EnrichCompanyResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/companies/enrich"
 
@@ -193,8 +88,114 @@ func (s *companies) EnrichCompany(ctx context.Context, request operations.Enrich
 	return res, nil
 }
 
-// SearchCompanies - Search Companies
-func (s *companies) SearchCompanies(ctx context.Context, request operations.SearchCompaniesApplicationJSON) (*operations.SearchCompaniesResponse, error) {
+// ListEmployees - List company employees
+func (s *companies) ListEmployees(ctx context.Context, request operations.ListEmployeesRequest) (*operations.ListEmployeesResponse, error) {
+	baseURL := s.serverURL
+	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request, nil)
+
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
+
+	client := s.securityClient
+
+	httpRes, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending request: %w", err)
+	}
+	if httpRes == nil {
+		return nil, fmt.Errorf("error sending request: no response")
+	}
+	defer httpRes.Body.Close()
+
+	contentType := httpRes.Header.Get("Content-Type")
+
+	res := &operations.ListEmployeesResponse{
+		StatusCode:  httpRes.StatusCode,
+		ContentType: contentType,
+		RawResponse: httpRes,
+	}
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(contentType, `*/*`):
+			out, err := io.ReadAll(httpRes.Body)
+			if err != nil {
+				return nil, fmt.Errorf("error reading response body: %w", err)
+			}
+
+			res.Body = out
+		}
+	case httpRes.StatusCode == 401:
+		fallthrough
+	case httpRes.StatusCode == 403:
+		fallthrough
+	case httpRes.StatusCode == 404:
+	}
+
+	return res, nil
+}
+
+// ListJobs - List company jobs
+func (s *companies) ListJobs(ctx context.Context, request operations.ListJobsRequest) (*operations.ListJobsResponse, error) {
+	baseURL := s.serverURL
+	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request, nil)
+
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
+
+	client := s.securityClient
+
+	httpRes, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending request: %w", err)
+	}
+	if httpRes == nil {
+		return nil, fmt.Errorf("error sending request: no response")
+	}
+	defer httpRes.Body.Close()
+
+	contentType := httpRes.Header.Get("Content-Type")
+
+	res := &operations.ListJobsResponse{
+		StatusCode:  httpRes.StatusCode,
+		ContentType: contentType,
+		RawResponse: httpRes,
+	}
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(contentType, `*/*`):
+			out, err := io.ReadAll(httpRes.Body)
+			if err != nil {
+				return nil, fmt.Errorf("error reading response body: %w", err)
+			}
+
+			res.Body = out
+		}
+	case httpRes.StatusCode == 401:
+		fallthrough
+	case httpRes.StatusCode == 403:
+		fallthrough
+	case httpRes.StatusCode == 404:
+	}
+
+	return res, nil
+}
+
+// Search - Search Companies
+func (s *companies) Search(ctx context.Context, request operations.SearchCompaniesApplicationJSON) (*operations.SearchCompaniesResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/companies/search"
 

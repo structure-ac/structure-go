@@ -12,6 +12,7 @@ import (
 	"strings"
 )
 
+// accounts - Accounts
 type accounts struct {
 	defaultClient  HTTPClient
 	securityClient HTTPClient
@@ -32,8 +33,8 @@ func newAccounts(defaultClient, securityClient HTTPClient, serverURL, language, 
 	}
 }
 
-// Accounts - Show current user accounts
-func (s *accounts) Accounts(ctx context.Context) (*operations.AccountsResponse, error) {
+// ListUsers - Show current user accounts
+func (s *accounts) ListUsers(ctx context.Context) (*operations.ListUsersResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/accounts"
 
@@ -55,7 +56,7 @@ func (s *accounts) Accounts(ctx context.Context) (*operations.AccountsResponse, 
 
 	contentType := httpRes.Header.Get("Content-Type")
 
-	res := &operations.AccountsResponse{
+	res := &operations.ListUsersResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
 		RawResponse: httpRes,

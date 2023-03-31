@@ -12,6 +12,7 @@ import (
 	"strings"
 )
 
+// people - People
 type people struct {
 	defaultClient  HTTPClient
 	securityClient HTTPClient
@@ -32,8 +33,8 @@ func newPeople(defaultClient, securityClient HTTPClient, serverURL, language, sd
 	}
 }
 
-// EnrichPerson - Enrich a person profile
-func (s *people) EnrichPerson(ctx context.Context, request operations.EnrichPersonRequest) (*operations.EnrichPersonResponse, error) {
+// Enrich - Enrich a person profile
+func (s *people) Enrich(ctx context.Context, request operations.EnrichPersonRequest) (*operations.EnrichPersonResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/people/enrich"
 
@@ -87,8 +88,8 @@ func (s *people) EnrichPerson(ctx context.Context, request operations.EnrichPers
 	return res, nil
 }
 
-// SearchSearch - Search People
-func (s *people) SearchSearch(ctx context.Context, request operations.SearchSearchApplicationJSON) (*operations.SearchSearchResponse, error) {
+// Search - Search People
+func (s *people) Search(ctx context.Context, request operations.SearchPeopleApplicationJSON) (*operations.SearchPeopleResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/people/search"
 
@@ -117,7 +118,7 @@ func (s *people) SearchSearch(ctx context.Context, request operations.SearchSear
 
 	contentType := httpRes.Header.Get("Content-Type")
 
-	res := &operations.SearchSearchResponse{
+	res := &operations.SearchPeopleResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
 		RawResponse: httpRes,

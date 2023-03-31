@@ -13,12 +13,19 @@ import (
 func main() {
     s := sdk.New(
         sdk.WithSecurity(shared.Security{
-            BearerAuth: "YOUR_API_KEY",
+            BearerAuth: "Bearer YOUR_BEARER_TOKEN_HERE",
         }),
     )
 
+    req := operations.EnrichCompanyRequest{
+        CountryCode: "corrupti",
+        Headquarters: "provident",
+        ID: "distinctio",
+        Name: "quibusdam",
+    }
+
     ctx := context.Background()
-    res, err := s.Accounts.Accounts(ctx)
+    res, err := s.Companies.Enrich(ctx, req)
     if err != nil {
         log.Fatal(err)
     }

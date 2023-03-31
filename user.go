@@ -12,7 +12,8 @@ import (
 	"strings"
 )
 
-type auths struct {
+// user - User
+type user struct {
 	defaultClient  HTTPClient
 	securityClient HTTPClient
 	serverURL      string
@@ -21,8 +22,8 @@ type auths struct {
 	genVersion     string
 }
 
-func newAuths(defaultClient, securityClient HTTPClient, serverURL, language, sdkVersion, genVersion string) *auths {
-	return &auths{
+func newUser(defaultClient, securityClient HTTPClient, serverURL, language, sdkVersion, genVersion string) *user {
+	return &user{
 		defaultClient:  defaultClient,
 		securityClient: securityClient,
 		serverURL:      serverURL,
@@ -32,8 +33,8 @@ func newAuths(defaultClient, securityClient HTTPClient, serverURL, language, sdk
 	}
 }
 
-// Auths - Login user
-func (s *auths) Auths(ctx context.Context, request operations.AuthsApplicationJSON) (*operations.AuthsResponse, error) {
+// Login - Login user
+func (s *user) Login(ctx context.Context, request operations.LoginApplicationJSON) (*operations.LoginResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/auths"
 
@@ -65,7 +66,52 @@ func (s *auths) Auths(ctx context.Context, request operations.AuthsApplicationJS
 
 	contentType := httpRes.Header.Get("Content-Type")
 
-	res := &operations.AuthsResponse{
+	res := &operations.LoginResponse{
+		StatusCode:  httpRes.StatusCode,
+		ContentType: contentType,
+		RawResponse: httpRes,
+	}
+	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(contentType, `*/*`):
+			out, err := io.ReadAll(httpRes.Body)
+			if err != nil {
+				return nil, fmt.Errorf("error reading response body: %w", err)
+			}
+
+			res.Body = out
+		}
+	case httpRes.StatusCode == 401:
+	}
+
+	return res, nil
+}
+
+// Me - Show current user
+func (s *user) Me(ctx context.Context) (*operations.MeResponse, error) {
+	baseURL := s.serverURL
+	url := strings.TrimSuffix(baseURL, "/") + "/me"
+
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+
+	client := s.securityClient
+
+	httpRes, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error sending request: %w", err)
+	}
+	if httpRes == nil {
+		return nil, fmt.Errorf("error sending request: no response")
+	}
+	defer httpRes.Body.Close()
+
+	contentType := httpRes.Header.Get("Content-Type")
+
+	res := &operations.MeResponse{
 		StatusCode:  httpRes.StatusCode,
 		ContentType: contentType,
 		RawResponse: httpRes,

@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type CompanyJobsRequest struct {
+type ListJobsRequest struct {
 	// ID of the company
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The offset number to start at
@@ -15,7 +15,7 @@ type CompanyJobsRequest struct {
 	PerPage *string `queryParam:"style=form,explode=true,name=per_page"`
 }
 
-type CompanyJobsResponse struct {
+type ListJobsResponse struct {
 	Body        []byte
 	ContentType string
 	StatusCode  int

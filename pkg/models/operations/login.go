@@ -6,14 +6,14 @@ import (
 	"net/http"
 )
 
-type AuthsApplicationJSON struct {
+type LoginApplicationJSON struct {
 	// The email of the user
 	Email string `json:"email"`
 	// The password of the user
 	Password string `json:"password"`
 }
 
-type AuthsResponse struct {
+type LoginResponse struct {
 	Body        []byte
 	ContentType string
 	StatusCode  int
