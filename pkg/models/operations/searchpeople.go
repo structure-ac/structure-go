@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type SearchCompaniesApplicationJSON struct {
+type SearchPeopleApplicationJSON struct {
 	// Filter for searching
 	Filter *string `json:"filter,omitempty"`
 	// Number of results per page (0-100)
@@ -17,7 +17,7 @@ type SearchCompaniesApplicationJSON struct {
 	Query *string `json:"query,omitempty"`
 }
 
-type SearchCompaniesResponse struct {
+type SearchPeopleResponse struct {
 	Body        []byte
 	ContentType string
 	StatusCode  int

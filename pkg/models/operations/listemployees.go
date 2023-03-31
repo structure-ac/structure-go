@@ -6,24 +6,16 @@ import (
 	"net/http"
 )
 
-type CompanyJobsPathParams struct {
+type ListEmployeesRequest struct {
 	// ID of the company
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-}
-
-type CompanyJobsQueryParams struct {
 	// The offset number to start at
 	Offset *string `queryParam:"style=form,explode=true,name=offset"`
 	// Number of results per page (0-100)
 	PerPage *string `queryParam:"style=form,explode=true,name=per_page"`
 }
 
-type CompanyJobsRequest struct {
-	PathParams  CompanyJobsPathParams
-	QueryParams CompanyJobsQueryParams
-}
-
-type CompanyJobsResponse struct {
+type ListEmployeesResponse struct {
 	Body        []byte
 	ContentType string
 	StatusCode  int

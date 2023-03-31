@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type EnrichCompanyQueryParams struct {
+type EnrichCompanyRequest struct {
 	// Country code of the company
 	CountryCode *string `queryParam:"style=form,explode=true,name=country_code"`
 	// The headquarters of the company
@@ -15,10 +15,6 @@ type EnrichCompanyQueryParams struct {
 	ID *string `queryParam:"style=form,explode=true,name=id"`
 	// Game of the company
 	Name *string `queryParam:"style=form,explode=true,name=name"`
-}
-
-type EnrichCompanyRequest struct {
-	QueryParams EnrichCompanyQueryParams
 }
 
 type EnrichCompanyResponse struct {

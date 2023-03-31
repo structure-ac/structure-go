@@ -6,11 +6,14 @@ import (
 	"net/http"
 )
 
-type AuthsRequest struct {
-	Request interface{} `request:"mediaType=application/json"`
+type LoginApplicationJSON struct {
+	// The email of the user
+	Email string `json:"email"`
+	// The password of the user
+	Password string `json:"password"`
 }
 
-type AuthsResponse struct {
+type LoginResponse struct {
 	Body        []byte
 	ContentType string
 	StatusCode  int

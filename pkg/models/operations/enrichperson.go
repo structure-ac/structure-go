@@ -6,13 +6,9 @@ import (
 	"net/http"
 )
 
-type EnrichPersonQueryParams struct {
+type EnrichPersonRequest struct {
 	// LinkedIn ID of the person
 	ID *string `queryParam:"style=form,explode=true,name=id"`
-}
-
-type EnrichPersonRequest struct {
-	QueryParams EnrichPersonQueryParams
 }
 
 type EnrichPersonResponse struct {

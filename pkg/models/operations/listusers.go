@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-type AccountsResponse struct {
+type ListUsersResponse struct {
 	Body        []byte
 	ContentType string
 	StatusCode  int

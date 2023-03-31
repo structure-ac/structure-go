@@ -24,11 +24,14 @@ func String(s string) *string { return &s }
 
 // SDK - Structure provides company and people data. Use our dataset of 700 million people and 24 million companies to build products, enrich person profiles, power predictive modeling/ai, analysis, and more.
 type SDK struct {
-	Accounts  *accounts
-	Auths     *auths
+	// Accounts - Accounts
+	Accounts *accounts
+	// Companies - Companies
 	Companies *companies
-	Me        *me
-	People    *people
+	// People - People
+	People *people
+	// User - User
+	User *user
 
 	// Non-idiomatic field names below are to namespace fields from the fields names above to avoid name conflicts
 	_defaultClient  HTTPClient
@@ -78,8 +81,8 @@ func WithSecurity(security shared.Security) SDKOption {
 func New(opts ...SDKOption) *SDK {
 	sdk := &SDK{
 		_language:   "go",
-		_sdkVersion: "1.0.0",
-		_genVersion: "2.16.5",
+		_sdkVersion: "0.0.3",
+		_genVersion: "2.16.7",
 	}
 	for _, opt := range opts {
 		opt(sdk)
@@ -110,15 +113,6 @@ func New(opts ...SDKOption) *SDK {
 		sdk._genVersion,
 	)
 
-	sdk.Auths = newAuths(
-		sdk._defaultClient,
-		sdk._securityClient,
-		sdk._serverURL,
-		sdk._language,
-		sdk._sdkVersion,
-		sdk._genVersion,
-	)
-
 	sdk.Companies = newCompanies(
 		sdk._defaultClient,
 		sdk._securityClient,
@@ -128,7 +122,7 @@ func New(opts ...SDKOption) *SDK {
 		sdk._genVersion,
 	)
 
-	sdk.Me = newMe(
+	sdk.People = newPeople(
 		sdk._defaultClient,
 		sdk._securityClient,
 		sdk._serverURL,
@@ -137,7 +131,7 @@ func New(opts ...SDKOption) *SDK {
 		sdk._genVersion,
 	)
 
-	sdk.People = newPeople(
+	sdk.User = newUser(
 		sdk._defaultClient,
 		sdk._securityClient,
 		sdk._serverURL,
