@@ -25,7 +25,7 @@ func main() {
     s := sdk.New(
         sdk.WithSecurity(shared.Security{
             BearerAuth: shared.SchemeBearerAuth{
-                Authorization: "Bearer YOUR_BEARER_TOKEN_HERE",
+                Authorization: "YOUR_API_KEY",
             },
         }),
     )
