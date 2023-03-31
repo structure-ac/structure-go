@@ -10,5 +10,5 @@ generation:
   sdkFlattening: true
   singleTagPerOp: false
 go:
-  version: 0.0.3
+  version: ""
   packageName: Structure
