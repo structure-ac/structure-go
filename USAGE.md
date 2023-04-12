@@ -17,6 +17,7 @@ func main() {
         }),
     )
 
+    ctx := context.Background()    
     req := operations.EnrichCompanyRequest{
         CountryCode: "corrupti",
         Headquarters: "provident",
@@ -24,7 +25,6 @@ func main() {
         Name: "quibusdam",
     }
 
-    ctx := context.Background()
     res, err := s.Companies.Enrich(ctx, req)
     if err != nil {
         log.Fatal(err)
