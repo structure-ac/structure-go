@@ -91,7 +91,10 @@ func (s *companies) Enrich(ctx context.Context, request operations.EnrichCompany
 // ListEmployees - List company employees
 func (s *companies) ListEmployees(ctx context.Context, request operations.ListEmployeesRequest) (*operations.ListEmployeesResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
@@ -144,7 +147,10 @@ func (s *companies) ListEmployees(ctx context.Context, request operations.ListEm
 // ListJobs - List company jobs
 func (s *companies) ListJobs(ctx context.Context, request operations.ListJobsRequest) (*operations.ListJobsResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
