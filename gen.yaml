@@ -7,9 +7,9 @@ management:
 generation:
   telemetryEnabled: false
   sdkClassName: SDK
-  sdkFlattening: false
+  sdkFlattening: true
   singleTagPerOp: false
 go:
-  version: 0.1.0
+  version: ""
   author: Structure
   packageName: Structure
