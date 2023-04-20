@@ -36,15 +36,14 @@ func newPeople(defaultClient, securityClient HTTPClient, serverURL, language, sd
 // Enrich - Enrich a person profile
 func (s *people) Enrich(ctx context.Context, request operations.EnrichPersonRequest) (*operations.EnrichPersonResponse, error) {
 	baseURL := s.serverURL
-	url := strings.TrimSuffix(baseURL, "/") + "/people/enrich"
+	url, err := utils.GenerateURL(ctx, baseURL, "/people/{id}/enrich", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	client := s.securityClient

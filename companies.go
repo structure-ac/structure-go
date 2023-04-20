@@ -36,15 +36,14 @@ func newCompanies(defaultClient, securityClient HTTPClient, serverURL, language,
 // Enrich - Enrich a company profile
 func (s *companies) Enrich(ctx context.Context, request operations.EnrichCompanyRequest) (*operations.EnrichCompanyResponse, error) {
 	baseURL := s.serverURL
-	url := strings.TrimSuffix(baseURL, "/") + "/companies/enrich"
+	url, err := utils.GenerateURL(ctx, baseURL, "/companies/{id}/enrich", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
-	}
-
-	if err := utils.PopulateQueryParams(ctx, req, request, nil); err != nil {
-		return nil, fmt.Errorf("error populating query params: %w", err)
 	}
 
 	client := s.securityClient
@@ -91,7 +90,10 @@ func (s *companies) Enrich(ctx context.Context, request operations.EnrichCompany
 // ListEmployees - List company employees
 func (s *companies) ListEmployees(ctx context.Context, request operations.ListEmployeesRequest) (*operations.ListEmployeesResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
@@ -144,7 +146,10 @@ func (s *companies) ListEmployees(ctx context.Context, request operations.ListEm
 // ListJobs - List company jobs
 func (s *companies) ListJobs(ctx context.Context, request operations.ListJobsRequest) (*operations.ListJobsResponse, error) {
 	baseURL := s.serverURL
-	url := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request, nil)
+	url, err := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error generating URL: %w", err)
+	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
