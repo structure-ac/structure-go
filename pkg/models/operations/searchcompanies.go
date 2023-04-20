@@ -9,7 +9,7 @@ import (
 type SearchCompaniesApplicationJSON struct {
 	// Filter for searching
 	Filter *string `json:"filter,omitempty"`
-	// Number of results per page (0-100)
+	// Number of results per page (0-100) default 10
 	Limit *string `json:"limit,omitempty"`
 	// The offset number to start at
 	Page *string `json:"page,omitempty"`

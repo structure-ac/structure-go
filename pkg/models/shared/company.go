@@ -42,6 +42,8 @@ type Company struct {
 	Name string
 	// The type of organization
 	OrganizationType string
+	// The company's profiles
+	Profiles []string
 	// The comapny's headquarters region
 	Region string
 	// Similar companies to this company

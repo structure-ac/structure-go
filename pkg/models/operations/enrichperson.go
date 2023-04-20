@@ -8,7 +8,7 @@ import (
 
 type EnrichPersonRequest struct {
 	// LinkedIn ID of the person
-	ID *string `queryParam:"style=form,explode=true,name=id"`
+	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
 type EnrichPersonResponse struct {

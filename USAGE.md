@@ -19,10 +19,7 @@ func main() {
 
     ctx := context.Background()    
     req := operations.EnrichCompanyRequest{
-        CountryCode: "MA",
-        Headquarters: "provident",
-        ID: "bd9d8d69-a674-4e0f-867c-c8796ed151a0",
-        Name: "Estelle Will",
+        ID: "89bd9d8d-69a6-474e-8f46-7cc8796ed151",
     }
 
     res, err := s.Companies.Enrich(ctx, req)
