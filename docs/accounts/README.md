@@ -1,4 +1,19 @@
-<!-- Start SDK Example Usage -->
+# Accounts
+
+## Overview
+
+Accounts
+
+### Available Operations
+
+* [ListUsers](#listusers) - Show current user accounts
+
+## ListUsers
+
+Show current user accounts
+
+### Example Usage
+
 ```go
 package main
 
@@ -6,7 +21,6 @@ import(
 	"context"
 	"log"
 	"Structure"
-	"Structure/pkg/models/operations"
 )
 
 func main() {
@@ -16,12 +30,8 @@ func main() {
         }),
     )
 
-    ctx := context.Background()    
-    req := operations.EnrichCompanyRequest{
-        ID: "89bd9d8d-69a6-474e-8f46-7cc8796ed151",
-    }
-
-    res, err := s.Companies.Enrich(ctx, req)
+    ctx := context.Background()
+    res, err := s.Accounts.ListUsers(ctx)
     if err != nil {
         log.Fatal(err)
     }
@@ -31,4 +41,3 @@ func main() {
     }
 }
 ```
-<!-- End SDK Example Usage -->
