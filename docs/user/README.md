@@ -32,13 +32,11 @@ func main() {
         }),
     )
 
-    ctx := context.Background()    
-    req := operations.LoginApplicationJSON{
+    ctx := context.Background()
+    res, err := s.User.Login(ctx, operations.LoginApplicationJSON{
         Email: "Kenny50@yahoo.com",
         Password: "rem",
-    }
-
-    res, err := s.User.Login(ctx, req)
+    })
     if err != nil {
         log.Fatal(err)
     }

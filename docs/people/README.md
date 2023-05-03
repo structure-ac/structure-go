@@ -32,12 +32,10 @@ func main() {
         }),
     )
 
-    ctx := context.Background()    
-    req := operations.EnrichPersonRequest{
+    ctx := context.Background()
+    res, err := s.People.Enrich(ctx, operations.EnrichPersonRequest{
         ID: "d019da1f-fe78-4f09-bb00-74f15471b5e6",
-    }
-
-    res, err := s.People.Enrich(ctx, req)
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -71,15 +69,13 @@ func main() {
         }),
     )
 
-    ctx := context.Background()    
-    req := operations.SearchPeopleApplicationJSON{
+    ctx := context.Background()
+    res, err := s.People.Search(ctx, operations.SearchPeopleApplicationJSON{
         Filter: sdk.String("repudiandae"),
         Limit: sdk.String("quae"),
         Page: sdk.String("ipsum"),
         Query: sdk.String("quidem"),
-    }
-
-    res, err := s.People.Search(ctx, req)
+    })
     if err != nil {
         log.Fatal(err)
     }

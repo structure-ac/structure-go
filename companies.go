@@ -34,6 +34,7 @@ func newCompanies(defaultClient, securityClient HTTPClient, serverURL, language,
 }
 
 // Enrich - Enrich a company profile
+
 func (s *companies) Enrich(ctx context.Context, request operations.EnrichCompanyRequest) (*operations.EnrichCompanyResponse, error) {
 	baseURL := s.serverURL
 	url, err := utils.GenerateURL(ctx, baseURL, "/companies/{id}/enrich", request, nil)
@@ -88,6 +89,7 @@ func (s *companies) Enrich(ctx context.Context, request operations.EnrichCompany
 }
 
 // ListEmployees - List company employees
+
 func (s *companies) ListEmployees(ctx context.Context, request operations.ListEmployeesRequest) (*operations.ListEmployeesResponse, error) {
 	baseURL := s.serverURL
 	url, err := utils.GenerateURL(ctx, baseURL, "/companies/{id}/employees", request, nil)
@@ -144,6 +146,7 @@ func (s *companies) ListEmployees(ctx context.Context, request operations.ListEm
 }
 
 // ListJobs - List company jobs
+
 func (s *companies) ListJobs(ctx context.Context, request operations.ListJobsRequest) (*operations.ListJobsResponse, error) {
 	baseURL := s.serverURL
 	url, err := utils.GenerateURL(ctx, baseURL, "/companies/{id}/jobs", request, nil)
@@ -200,6 +203,7 @@ func (s *companies) ListJobs(ctx context.Context, request operations.ListJobsReq
 }
 
 // Search - Search Companies
+
 func (s *companies) Search(ctx context.Context, request operations.SearchCompaniesApplicationJSON) (*operations.SearchCompaniesResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/companies/search"

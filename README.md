@@ -44,12 +44,10 @@ func main() {
         }),
     )
 
-    ctx := context.Background()    
-    req := operations.EnrichCompanyRequest{
+    ctx := context.Background()
+    res, err := s.Companies.Enrich(ctx, operations.EnrichCompanyRequest{
         ID: "89bd9d8d-69a6-474e-8f46-7cc8796ed151",
-    }
-
-    res, err := s.Companies.Enrich(ctx, req)
+    })
     if err != nil {
         log.Fatal(err)
     }
