@@ -64,3 +64,11 @@ Based on:
 - Speakeasy CLI 1.27.0 (2.24.0) https://github.com/speakeasy-api/speakeasy
 ### Releases
 - [Go v0.4.0] https://github.com/structure-ac/structure-go/releases/tag/v0.4.0 - .
+
+## 2023-05-13 00:45:53
+### Changes
+Based on:
+- OpenAPI Doc 1.0 https://prod.speakeasyapi.dev/v1/apis/Structure/version/1.0.0/schema/download
+- Speakeasy CLI 1.31.1 (2.27.0) https://github.com/speakeasy-api/speakeasy
+### Releases
+- [Go v0.5.0] https://github.com/structure-ac/structure-go/releases/tag/v0.5.0 - .

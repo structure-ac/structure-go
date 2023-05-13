@@ -34,7 +34,6 @@ func newPeople(defaultClient, securityClient HTTPClient, serverURL, language, sd
 }
 
 // Enrich - Enrich a person profile
-
 func (s *people) Enrich(ctx context.Context, request operations.EnrichPersonRequest) (*operations.EnrichPersonResponse, error) {
 	baseURL := s.serverURL
 	url, err := utils.GenerateURL(ctx, baseURL, "/people/{id}/enrich", request, nil)
@@ -89,7 +88,6 @@ func (s *people) Enrich(ctx context.Context, request operations.EnrichPersonRequ
 }
 
 // Search - Search People
-
 func (s *people) Search(ctx context.Context, request operations.SearchPeopleApplicationJSON) (*operations.SearchPeopleResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/people/search"

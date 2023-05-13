@@ -34,7 +34,6 @@ func newUser(defaultClient, securityClient HTTPClient, serverURL, language, sdkV
 }
 
 // Login - Login user
-
 func (s *user) Login(ctx context.Context, request operations.LoginApplicationJSON) (*operations.LoginResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/auths"
@@ -90,7 +89,6 @@ func (s *user) Login(ctx context.Context, request operations.LoginApplicationJSO
 }
 
 // Me - Show current user
-
 func (s *user) Me(ctx context.Context) (*operations.MeResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/me"

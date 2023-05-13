@@ -34,7 +34,6 @@ func newAccounts(defaultClient, securityClient HTTPClient, serverURL, language, 
 }
 
 // ListUsers - Show current user accounts
-
 func (s *accounts) ListUsers(ctx context.Context) (*operations.ListUsersResponse, error) {
 	baseURL := s.serverURL
 	url := strings.TrimSuffix(baseURL, "/") + "/accounts"
