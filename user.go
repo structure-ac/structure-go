@@ -5,6 +5,7 @@ package sdk
 import (
 	"Structure/pkg/models/operations"
 	"Structure/pkg/utils"
+	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -50,6 +51,8 @@ func (s *user) Login(ctx context.Context, request operations.LoginApplicationJSO
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
+	req.Header.Set("Accept", "*/*")
+	req.Header.Set("user-agent", fmt.Sprintf("speakeasy-sdk/%s %s %s", s.language, s.sdkVersion, s.genVersion))
 
 	req.Header.Set("Content-Type", reqContentType)
 
@@ -62,7 +65,13 @@ func (s *user) Login(ctx context.Context, request operations.LoginApplicationJSO
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
-	defer httpRes.Body.Close()
+
+	rawBody, err := io.ReadAll(httpRes.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response body: %w", err)
+	}
+	httpRes.Body.Close()
+	httpRes.Body = io.NopCloser(bytes.NewBuffer(rawBody))
 
 	contentType := httpRes.Header.Get("Content-Type")
 
@@ -75,12 +84,7 @@ func (s *user) Login(ctx context.Context, request operations.LoginApplicationJSO
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(contentType, `*/*`):
-			out, err := io.ReadAll(httpRes.Body)
-			if err != nil {
-				return nil, fmt.Errorf("error reading response body: %w", err)
-			}
-
-			res.Body = out
+			res.Body = rawBody
 		}
 	case httpRes.StatusCode == 401:
 	}
@@ -97,6 +101,8 @@ func (s *user) Me(ctx context.Context) (*operations.MeResponse, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
+	req.Header.Set("Accept", "*/*")
+	req.Header.Set("user-agent", fmt.Sprintf("speakeasy-sdk/%s %s %s", s.language, s.sdkVersion, s.genVersion))
 
 	client := s.securityClient
 
@@ -107,7 +113,13 @@ func (s *user) Me(ctx context.Context) (*operations.MeResponse, error) {
 	if httpRes == nil {
 		return nil, fmt.Errorf("error sending request: no response")
 	}
-	defer httpRes.Body.Close()
+
+	rawBody, err := io.ReadAll(httpRes.Body)
+	if err != nil {
+		return nil, fmt.Errorf("error reading response body: %w", err)
+	}
+	httpRes.Body.Close()
+	httpRes.Body = io.NopCloser(bytes.NewBuffer(rawBody))
 
 	contentType := httpRes.Header.Get("Content-Type")
 
@@ -120,12 +132,7 @@ func (s *user) Me(ctx context.Context) (*operations.MeResponse, error) {
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(contentType, `*/*`):
-			out, err := io.ReadAll(httpRes.Body)
-			if err != nil {
-				return nil, fmt.Errorf("error reading response body: %w", err)
-			}
-
-			res.Body = out
+			res.Body = rawBody
 		}
 	case httpRes.StatusCode == 401:
 	}
