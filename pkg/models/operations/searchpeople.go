@@ -17,6 +17,9 @@ type SearchPeopleApplicationJSON struct {
 	Query *string `json:"query,omitempty"`
 }
 
+type SearchPeople200Wildcard struct {
+}
+
 type SearchPeopleResponse struct {
 	Body        []byte
 	ContentType string

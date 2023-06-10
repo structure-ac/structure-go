@@ -13,6 +13,9 @@ type LoginApplicationJSON struct {
 	Password string `json:"password"`
 }
 
+type Login200Wildcard struct {
+}
+
 type LoginResponse struct {
 	Body        []byte
 	ContentType string

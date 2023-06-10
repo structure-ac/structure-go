@@ -17,6 +17,9 @@ type SearchCompaniesApplicationJSON struct {
 	Query *string `json:"query,omitempty"`
 }
 
+type SearchCompanies200Wildcard struct {
+}
+
 type SearchCompaniesResponse struct {
 	Body        []byte
 	ContentType string

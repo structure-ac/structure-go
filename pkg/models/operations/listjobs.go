@@ -15,6 +15,9 @@ type ListJobsRequest struct {
 	PerPage *string `queryParam:"style=form,explode=true,name=per_page"`
 }
 
+type ListJobs200Wildcard struct {
+}
+
 type ListJobsResponse struct {
 	Body        []byte
 	ContentType string

@@ -6,6 +6,9 @@ import (
 	"net/http"
 )
 
+type Me200Wildcard struct {
+}
+
 type MeResponse struct {
 	Body        []byte
 	ContentType string
